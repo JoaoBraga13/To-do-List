@@ -39,4 +39,7 @@ exports.criar = async (req,res) => {
     }    
 }
 
+exports.editar = async (req,res) => {
+    res.render('editar.ejs')
+}
 

@@ -6,14 +6,6 @@
   <section class="container">
     <h1>Tarefas</h1>
 
-    <% if (success.length > 0) { %>
-      <ul>
-        <% success.forEach(msg => { %>
-          <li style="color:green;"><%= msg %></li>
-        <% }) %>
-      </ul>
-    <% } %>
-
     <%- include('includes/messages') %>
 
     <% if(tarefas.length > 0) {%>
@@ -23,6 +15,7 @@
           <tr>
             <td><%= tarefa.nome %></td>
             <td><%= tarefa.descricao %></td>
+            <td> <a href="/tarefas/<%= tarefa._id %>/editar" class="btn btn-sm btn-outline-primary">Editar</a></td>
           </tr>
         <% }) %>
       </table>
