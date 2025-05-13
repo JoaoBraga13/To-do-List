@@ -1,0 +1,5 @@
+Texto para teste de arquivos estáticos
+
+por termos criados mais pastas, no navegador devemos colocar na url o caminho das pastas para que o arquivo
+estático funcione
+- ficaria: localhost:3000/assets/css/style.css

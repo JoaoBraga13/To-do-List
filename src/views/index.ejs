@@ -1,0 +1,36 @@
+<%- include('includes/head') %>
+<%- include('includes/nav') %>
+
+<body>
+
+  <section class="container">
+    <h1>Tarefas</h1>
+
+    <% if (success.length > 0) { %>
+      <ul>
+        <% success.forEach(msg => { %>
+          <li style="color:green;"><%= msg %></li>
+        <% }) %>
+      </ul>
+    <% } %>
+
+    <%- include('includes/messages') %>
+
+    <% if(tarefas.length > 0) {%>
+    <div class="responsive-table">
+      <table class="table my-3">
+        <% tarefas.forEach(tarefa => { %>
+          <tr>
+            <td><%= tarefa.nome %></td>
+            <td><%= tarefa.descricao %></td>
+          </tr>
+        <% }) %>
+      </table>
+    </div>
+    <%} else { %>
+      <p class="text-center lead"> Não existem tarefas na sua lista</p>
+    <% } %>
+    
+  </section>
+
+<%- include('includes/footer') %>

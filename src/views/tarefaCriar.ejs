@@ -1,0 +1,32 @@
+<%- include('includes/head') %>
+<%- include('includes/nav') %>
+
+<h2>Minhas Tarefas</h2>
+
+<% if (errors.length > 0) { %>
+  <ul>
+    <% errors.forEach(error => { %>
+      <li style="color:red;"><%= error %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<% if (success.length > 0) { %>
+  <ul>
+    <% success.forEach(msg => { %>
+      <li style="color:green;"><%= msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<!-- Formulário para nova tarefa -->
+<form action="/tarefas/criar" method="POST">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <input type="text" name="nome" placeholder="Nome da tarefa" required>
+  <input type="text" name="descricao" placeholder="Descrição da tarefa" required>
+  <button type="submit">Criar Tarefa</button>
+</form>
+
+
+
+<%- include('includes/footer') %>
