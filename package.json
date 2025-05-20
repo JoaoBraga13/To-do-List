@@ -24,6 +24,7 @@
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "helmet": "^8.0.0",
+    "method-override": "^3.0.0",
     "mongoose": "^8.10.0",
     "regenerator-runtime": "^0.14.1",
     "style-loader": "^4.0.0",

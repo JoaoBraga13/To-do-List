@@ -40,6 +40,11 @@ exports.criar = async (req,res) => {
 }
 
 exports.editar = async (req,res) => {
-    res.render('editar.ejs')
+    try{
+        
+    }
+    catch(e) {
+        res.render('404')
+    }
 }
 

@@ -31,6 +31,22 @@ class Tarefa {
 
     }
 
+    async editaTarefa(id) {
+        if(typeof id !== 'string') return
+        this. valida() 
+
+        if(this.errors.length > 0) return
+        this.tarefa = await TarefaModel.findByIdAndUpdate(id, this.body, {new: true})
+        console.log(this.tarefa)
+    }
+
+    //busca tarefas por ID
+    async buscaTarefasId(id) {
+        if(typeof id !== 'string') return
+        const tarefa = await TarefaModel.findById(id)
+        return tarefa
+    }
+
     //busca tarefas ordenadas
     async buscaTarefas() {
         const tarefas = await TarefaModel.find()
