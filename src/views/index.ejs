@@ -7,34 +7,38 @@
 
     <%- include('includes/messages') %>
 
-    <% if(tarefas.length > 0) {%>
-    <div class="responsive-table">
-      <table class="table my-3">
-        <% tarefas.forEach(tarefa => { %>
-          <tr>
-            <form action="/tarefas/<%= tarefa._id %>?_method=PUT" method="POST">
-              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-              <td>
-                <span class="texto-nome"><%= tarefa.nome %></span>
-                <input type="text" name="nome" class="form-control input-nome d-none" value="<%= tarefa.nome %>">
-              </td>
-              <td>
-                <span class="texto-descricao"><%= tarefa.descricao %></span>
-                <input type="text" name="descricao" class="form-control input-descricao d-none" value="<%= tarefa.descricao %>">
-              </td>
-              <td>
-                <button type="button" class="btn btn-sm btn-outline-primary btn-editar">Editar</button>
-                <button type="submit" class="btn btn-sm btn-outline-success btn-salvar d-none">Salvar</button>
-              </td>
-            </form>
-          </tr>
-        <% }) %>
-      </table>
-    </div>
-    <%} else { %>
+    <% if(user) { %>
+      <% if(tarefas.length > 0) { %>
+      <div class="responsive-table">
+        <table class="table my-3">
+          <% tarefas.forEach(tarefa => { %>
+            <tr>
+                <td>
+                <form action="/tarefas/<%= tarefa._id %>/editar" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                  <span class="texto-nome"><%= tarefa.nome %></span>
+                  <input type="text" name="nome" class="form-control input-nome d-none" value="<%= tarefa.nome %>">
+                </td>
+                <td>
+                  <span class="texto-descricao"><%= tarefa.descricao %></span>
+                  <input type="text" name="descricao" class="form-control input-descricao d-none" value="<%= tarefa.descricao %>">
+                </td>
+                <td>
+                  <button type="button" class="btn btn-sm btn-outline-primary btn-editar">Editar</button>
+                  <button type="submit" class="btn btn-sm btn-outline-success btn-salvar d-none">Salvar</button>
+                </td>
+              </form>
+            </tr>
+          <% }) %>
+        </table>
+      </div>
+      <% } %>
+    <% } else { %>
       <p class="text-center lead"> Não existem tarefas na sua lista</p>
     <% } %>
     
   </section>
+
 
 <%- include('includes/footer') %>

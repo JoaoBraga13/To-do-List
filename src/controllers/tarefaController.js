@@ -41,9 +41,24 @@ exports.criar = async (req,res) => {
 
 exports.editar = async (req,res) => {
     try{
-        
+        const tarefas = new tarefaModel(req.body)
+        await tarefas.editaTarefa(req.params.id)
+
+        if(tarefas.errors.length > 0) {
+            req.flash('errors', tarefas.errors)
+            req.session.save(() => {
+                res.redirect('/')
+            })
+        }
+
+        req.flash('success', 'Tarefa atualizada com sucesso!!')
+        req.session.save(() => {
+            res.redirect('/')
+        })
+
     }
     catch(e) {
+        console.log(e)
         res.render('404')
     }
 }

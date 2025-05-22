@@ -24239,3 +24239,27 @@ __webpack_require__.r(__webpack_exports__);
 /******/ })()
 ;
 //# sourceMappingURL=bundle.js.map
+
+
+//JS da edição da tarefa no index.ejs
+
+const botoesEditar = document.querySelectorAll('.btn-editar')
+
+botoesEditar.forEach(btn => {
+  btn.addEventListener('click', function() {
+    const form = this.closest('form') // agora pega o form corretamente
+    if(!form) {
+      console.error("formulário não encontrado")
+      return
+    }
+
+    form.querySelector('.texto-nome').classList.add('d-none')
+    form.querySelector('.texto-descricao').classList.add('d-none')
+
+    form.querySelector('.input-nome').classList.remove('d-none')
+    form.querySelector('.input-descricao').classList.remove('d-none')
+
+    this.classList.add('d-none') // esconde o botão Editar
+    form.querySelector('.btn-salvar').classList.remove('d-none') // mostra o botão Salvar
+  })
+}) 
