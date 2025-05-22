@@ -5,40 +5,44 @@
   <section class="container">
     <h1>Tarefas</h1>
 
+    <% if (success.length > 0) { %>
+      <ul>
+        <% success.forEach(msg => { %>
+          <li style="color:green;"><%= msg %></li>
+        <% }) %>
+      </ul>
+    <% } %>
+
     <%- include('includes/messages') %>
 
     <% if(user) { %>
-      <% if(tarefas.length > 0) { %>
+      <% if(tarefas.length > 0) {%>
       <div class="responsive-table">
         <table class="table my-3">
           <% tarefas.forEach(tarefa => { %>
-            <tr>
-                <td>
-                <form action="/tarefas/<%= tarefa._id %>/editar" method="POST">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-
-                  <span class="texto-nome"><%= tarefa.nome %></span>
-                  <input type="text" name="nome" class="form-control input-nome d-none" value="<%= tarefa.nome %>">
-                </td>
-                <td>
-                  <span class="texto-descricao"><%= tarefa.descricao %></span>
-                  <input type="text" name="descricao" class="form-control input-descricao d-none" value="<%= tarefa.descricao %>">
-                </td>
-                <td>
-                  <button type="button" class="btn btn-sm btn-outline-primary btn-editar">Editar</button>
-                  <button type="submit" class="btn btn-sm btn-outline-success btn-salvar d-none">Salvar</button>
-                </td>
-              </form>
+            <tr data-id="<%= tarefa.id %>">
+              <td>
+                <span class="nome" data-id="<%= tarefa.id %>"><%= tarefa.nome %></span>
+              </td>
+              <td>
+                <span class="descricao" data-id="<%= tarefa.id %>"><%= tarefa.descricao %></span>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary editar-btn" data-id="<%= tarefa.id %>">Editar</button>
+                <button type="button" class="btn btn-primary salvar-btn" data-id="<%= tarefa.id %>" style="display: none;">Salvar</button>
+              </td>
             </tr>
           <% }) %>
         </table>
       </div>
+      <% } else { %>
+        <p class="text-center lead">Não existem tarefas na sua lista</p>
       <% } %>
     <% } else { %>
-      <p class="text-center lead"> Não existem tarefas na sua lista</p>
+      <p class="text-center lead">Não está logado para ver as tarefas</p>
     <% } %>
-    
   </section>
-
-
-<%- include('includes/footer') %>
+  
+  <%- include('includes/footer') %>
+  <script src="/js/main.js"></script>
+</body>

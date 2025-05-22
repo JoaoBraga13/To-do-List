@@ -32,7 +32,6 @@ route.get('/tarefas/index', loginRequired, tarefaController.index)
 route.get('/tarefas/criar', loginRequired, tarefaController.criaTarefaPage)
 route.post('/tarefas/criar', loginRequired, tarefaController.criar)
 //route.get('/tarefas/:id/editar', loginRequired, tarefaController.editar)
-//route.put('/tarefas/:id/editar', loginRequired, tarefaController.editar)
-route.post('tarefas/:id/editar', loginRequired, tarefaController.editar)
+route.put('/tarefas/:id', loginRequired, tarefaController.atualizar);
 
 module.exports = route

@@ -21,7 +21,6 @@ const routes = require('./routes.js') //rotas da nossa aplicação
 const path = require('path') //trabalhar com caminhos absolutos e relativos
 const helmet = require('helmet') //segurança
 const csrf = require('csurf') //tokens para que nenhum site externo poste coisas dentro na nossa aplicação 
-const methodOverride = require('method-override')
 const {middlewareGlobal, checkCsrfError, csrfMiddleware} = require('./src/middlewares/middleware.js') //middlewares 
 
 app.use(helmet()) //usando helmet
@@ -29,7 +28,7 @@ app.use(helmet()) //usando helmet
 app.use(express.urlencoded({extended: true})) //tratar o req.body e postar formulários
 app.use(express.json())  
 app.use(express.static(path.resolve(__dirname, 'public'))) //usado para arquivos estáticos (imgs, css, JS...)
-app.use(methodOverride('_method'))
+app.use('/js', express.static(path.join(__dirname, 'frontend')))
 
 //configurando Session
 const sessionOptions = session({
