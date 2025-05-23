@@ -1,3 +1,4 @@
+const e = require('connect-flash');
 const Tarefa = require('../models/TarefaModel');
 
 exports.index = async (req, res) => {
@@ -11,7 +12,6 @@ exports.index = async (req, res) => {
       errors: req.flash('errors'),
     });
   } catch (e) {
-    console.log(e);
     res.render('404');
   }
 };
@@ -34,7 +34,6 @@ exports.criar = async (req, res) => {
     req.flash('success', 'Tarefa criada com sucesso!');
     req.session.save(() => res.redirect('/'));
   } catch (e) {
-    console.log(e);
     res.render('404');
   }
 };
@@ -57,24 +56,25 @@ exports.atualizar = async (req, res) => {
 
     return res.status(200).json({ success: true });
   } catch (e) {
-    console.log(e);
     res.status(500).json({ error: 'Erro ao atualizar tarefa' });
   }
 };
 
 exports.deletar = async (req,res) => {
     try{
-        const tarefaDeleta = await Tarefa.deletaTarefa(req.params.id)
+        const tarefaInstance = new Tarefa()
+        const tarefa = await tarefaInstance.deletaTarefa(req.params.id)
 
-        if(!tarefaDeleta) return res.render('404')
+        if(!tarefa) return res.render('404')
 
         req.flash('success', 'Tarefa apagada com sucesso!!')
-        req.session.save(() => {res.redirect('/')})
-        return
-        
+        req.session.save( erro => {
+          if (erro) console.log(e, res.render('404')) 
+          return res.redirect('/')
+        })
+
     } catch(e) {
         console.log(e)
         res.render('404')
-    }
-
+      }
 }

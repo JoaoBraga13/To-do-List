@@ -34,8 +34,8 @@ class Tarefa {
         try{
             if(this.errors.length > 0) return
 
-            const tarefa = await TarefaModel.findByIdAndDelete(id)
-            return tarefa
+            await TarefaModel.findByIdAndDelete(id)
+
         } catch(e) {
             console.log(e)
         }

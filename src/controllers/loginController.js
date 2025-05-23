@@ -29,7 +29,6 @@ exports.register = async function(req,res) {
             })
         }
     } catch(e) {
-        console.log(e)
         return res.render('404')
     }
 }
@@ -55,7 +54,6 @@ exports.login = async function(req, res){
         }
 
     } catch(e) {
-        console.log(e)
         res.render('404')
     }
 }

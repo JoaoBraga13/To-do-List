@@ -110,3 +110,26 @@ document.querySelectorAll(".salvar-btn").forEach(botao => {
     }
   });
 });
+
+document.querySelectorAll(".delete-btn").forEach(botao => {
+  botao.addEventListener("click", async (e) => {
+    const id = e.target.dataset.id;
+    const linha = e.target.closest("tr");
+
+    try {
+      const res = await fetch(`/tarefas/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "CSRF-Token": csrfToken
+        }
+      });
+
+      if (!res.ok) throw new Error("Erro ao deletar");
+
+      linha.remove()
+    } catch (err) {
+      alert("Erro ao deletar: " + err.message);
+    }
+  });
+});
