@@ -30,6 +30,17 @@ class Tarefa {
         }
     }
 
+    async deletaTarefa(id) {
+        try{
+            if(this.errors.length > 0) return
+
+            const tarefa = await TarefaModel.findByIdAndDelete(id)
+            return tarefa
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
     //busca tarefas ordenadas
     async buscaTarefas() {
         const tarefas = await TarefaModel.find()
@@ -59,5 +70,7 @@ class Tarefa {
     }
 }
 
+//lógica para editar tarefa
 Tarefa.TarefaModel = TarefaModel;
+
 module.exports = Tarefa

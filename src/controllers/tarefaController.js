@@ -61,3 +61,20 @@ exports.atualizar = async (req, res) => {
     res.status(500).json({ error: 'Erro ao atualizar tarefa' });
   }
 };
+
+exports.deletar = async (req,res) => {
+    try{
+        const tarefaDeleta = await Tarefa.deletaTarefa(req.params.id)
+
+        if(!tarefaDeleta) return res.render('404')
+
+        req.flash('success', 'Tarefa apagada com sucesso!!')
+        req.session.save(() => {res.redirect('/')})
+        return
+        
+    } catch(e) {
+        console.log(e)
+        res.render('404')
+    }
+
+}
