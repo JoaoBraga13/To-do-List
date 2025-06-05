@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
+const {Schema} = mongoose
 
 //Schema
 const TarefaSchema = new mongoose.Schema({
     nome: {type: String, required: true},
     descricao: {type: String, required: false},
+    user: {type: Schema.Types.ObjectId, ref: 'User', required: true}
 })
 
 //Model
@@ -25,6 +27,7 @@ class Tarefa {
             if(this.errors.length > 0) return
             this.tarefa = await TarefaModel.create(this.body)
             console.log(this.tarefa)
+
         } catch(e) {
             console.log(e)
         }
@@ -42,8 +45,8 @@ class Tarefa {
     }
 
     //busca tarefas ordenadas
-    async buscaTarefas() {
-        const tarefas = await TarefaModel.find()
+    async buscaTarefas(userId) {
+        const tarefas = await TarefaModel.find({user: userId})
         return tarefas
     }
 
@@ -66,6 +69,7 @@ class Tarefa {
         this.body = {
             nome: this.body.nome,
             descricao: this.body.descricao,
+            user: this.body.user
         }
     }
 }

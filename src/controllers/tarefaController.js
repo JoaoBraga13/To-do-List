@@ -4,7 +4,7 @@ const Tarefa = require('../models/TarefaModel');
 exports.index = async (req, res) => {
   try {
     const tarefaInstance = new Tarefa({});
-    const tarefas = await tarefaInstance.buscaTarefas();
+    const tarefas = await tarefaInstance.buscaTarefas(req.session.user._id);
 
     res.render('index', {
       tarefas,
@@ -22,8 +22,15 @@ exports.criaTarefaPage = (req, res) => {
 
 exports.criar = async (req, res) => {
   try {
-    const tarefaInstance = new Tarefa(req.body);
+    //junta os dados do formulario com o id do usuario
+    const dadosusuario = {
+      ...req.body,
+      user: req.session.user._id
+    }
+
+    const tarefaInstance = new Tarefa(dadosusuario);
     await tarefaInstance.criaTarefa();
+    
 
     if (tarefaInstance.errors.length > 0) {
       req.flash('errors', tarefaInstance.errors);
